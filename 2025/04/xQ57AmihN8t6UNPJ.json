@@ -785,6 +785,7 @@
       "id": "f5069397-3d96-4194-8b8f-6de7d50065c0",
       "name": "Completed Notification",
       "webhookId": "a7859dfa-19a6-47c4-a21b-35b7e9868774",
+      "executeOnce": true,
       "credentials": {
         "discordWebhookApi": {
           "id": "XlcfHXriBUvKnsIj",
@@ -1987,6 +1988,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-04-28T11:13:06.661Z",
-  "versionId": "9d0436d9-855e-4983-833c-eb9f7028648e"
+  "updatedAt": "2025-04-28T11:15:39.592Z",
+  "versionId": "6a707c15-3828-4e9d-b901-9556373e7354"
 }
