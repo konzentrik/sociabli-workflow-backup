@@ -1,0 +1,81 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook APEL Github Actions": {
+      "main": [
+        [
+          {
+            "node": "Discord Apel Logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-01T13:29:40.138Z",
+  "id": "FcqEZCrtw8ME3uC4",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "kzk Discord Webhooks",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "discord-github-apel",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        -20
+      ],
+      "id": "2b206b83-da69-48f6-82cd-558b61a34c9d",
+      "name": "Webhook APEL Github Actions",
+      "webhookId": "8f5cb045-ee71-46b1-941d-4382c4d428a5",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "JXAC3EQRHO3ka4di",
+          "name": "Header Auth Discord Webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "={{ $json.body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        140,
+        -20
+      ],
+      "id": "7eca8914-1a72-466c-8cc7-f9a799b5672b",
+      "name": "Discord Apel Logs",
+      "webhookId": "a7859dfa-19a6-47c4-a21b-35b7e9868774",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "PiCcKUcX4MN3aKxG",
+          "name": "Discord Webhook GitHub APEL"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "sociabli-workflow-backup",
+  "repo_owner": "konzentrik",
+  "repo_path": "test2",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-03T08:02:03.850Z",
+  "versionId": "e4d8e75c-aeed-4faf-9a85-3268278007cf"
+}
