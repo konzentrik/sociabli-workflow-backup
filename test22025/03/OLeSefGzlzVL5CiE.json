@@ -1,0 +1,473 @@
+{
+  "active": true,
+  "connections": {
+    "YADL RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Filter by GUID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter by GUID": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Article for Post  in LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Article for Bookmark in LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If has image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If has image": {
+      "main": [
+        [
+          {
+            "node": "Fetch image as binary stream",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Simple note in LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YADL Webhook on publish": {
+      "main": [
+        [
+          {
+            "node": "YADL RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch image as binary stream": {
+      "main": [
+        [
+          {
+            "node": "Image note in LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-25T08:19:58.765Z",
+  "id": "OLeSefGzlzVL5CiE",
+  "meta": null,
+  "name": "YADL Publishing",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://yadl.info/en/feed.rss",
+        "options": {}
+      },
+      "id": "e162d29a-a893-44c7-ba4e-c050cd2ea22f",
+      "name": "YADL RSS Read",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -1060,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6e2bf966-875c-4a96-bf56-08390da6fda0",
+              "leftValue": "={{ $json.guid }}",
+              "rightValue": "={{ $('YADL Webhook on publish').item.json.body.uuid }}",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "373a73cd-2b42-4709-9511-fd95ecebb94a",
+      "name": "Filter by GUID",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -840,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('YADL Webhook on publish').item.json.body.template }}",
+                    "rightValue": "post",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Post"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "85a67eaa-aaf2-4abe-96b2-24feacad38b9",
+                    "leftValue": "={{ $('YADL Webhook on publish').item.json.body.template }}",
+                    "rightValue": "bookmark",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Bookmark"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cfb97d63-1dae-4f62-bfaf-93a2a65bf39e",
+                    "leftValue": "={{ $('YADL Webhook on publish').item.json.body.template }}",
+                    "rightValue": "note",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Note"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a2f287ba-1e1e-4e75-a72b-009473fb4233",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -620,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4643a27a-b910-40ed-8aee-849e98c839eb",
+              "leftValue": "={{ $('YADL Webhook on publish').item.json.body.image }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "faea218c-e2c4-4e4d-9ef5-28cc5b6556aa",
+      "name": "If has image",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -340,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "79efd29a-0ab2-45f1-bec9-a0262bf0a22c",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "id": "2cc8342d-9d4f-4493-aae1-49d0d663ea43",
+      "name": "YADL Webhook on publish",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        180
+      ],
+      "webhookId": "79efd29a-0ab2-45f1-bec9-a0262bf0a22c",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "252CwNWEalvGQfQ6",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "GRrpRnLTSb",
+        "text": "={{ $('YADL Webhook on publish').item.json.body.text }}",
+        "shareMediaCategory": "IMAGE",
+        "binaryPropertyName": "=data",
+        "additionalFields": {
+          "title": "={{ $('Filter by GUID').item.json.title }}",
+          "visibility": "PUBLIC"
+        }
+      },
+      "id": "90521a46-c1fd-4d34-a47e-fc28a41cfa72",
+      "name": "Image note in LinkedIn",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        220,
+        360
+      ],
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "oFoMRg5Sw33br1kb",
+          "name": "LinkedIn N8N"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('YADL Webhook on publish').item.json.body.image }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "3a91844b-1689-4904-a530-468cfc92e5c0",
+      "name": "Fetch image as binary stream",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "person": "GRrpRnLTSb",
+        "text": "={{ $('YADL Webhook on publish').item.json.body.intro }}",
+        "shareMediaCategory": "ARTICLE",
+        "additionalFields": {
+          "originalUrl": "={{ $('Filter by GUID').item.json.link }}",
+          "title": "={{ $('Filter by GUID').item.json.title }}",
+          "visibility": "PUBLIC"
+        }
+      },
+      "id": "aff208c8-0f5f-4e5c-97b7-6c3cd09db243",
+      "name": "Article for Post  in LinkedIn",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "oFoMRg5Sw33br1kb",
+          "name": "LinkedIn N8N"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "GRrpRnLTSb",
+        "text": "={{ $('YADL Webhook on publish').item.json.body.text }}",
+        "shareMediaCategory": "ARTICLE",
+        "additionalFields": {
+          "originalUrl": "={{ $json.link }}",
+          "visibility": "PUBLIC"
+        }
+      },
+      "id": "73450628-a2c9-416a-89aa-19a4787b2752",
+      "name": "Article for Bookmark in LinkedIn",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        0,
+        180
+      ],
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "oFoMRg5Sw33br1kb",
+          "name": "LinkedIn N8N"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "GRrpRnLTSb",
+        "text": "={{ $('YADL Webhook on publish').item.json.body.text }}",
+        "additionalFields": {
+          "visibility": "PUBLIC"
+        }
+      },
+      "id": "ad6e1cb8-8538-4059-8f7a-a852a7c8cd7e",
+      "name": "Simple note in LinkedIn",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        0,
+        560
+      ],
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "oFoMRg5Sw33br1kb",
+          "name": "LinkedIn N8N"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "YADL Webhook on publish": [
+      {
+        "json": {
+          "headers": {
+            "host": "workflows.sociab.li",
+            "cf-ray": "92f8e9b63d3ce52e-TXL",
+            "x-forwarded-for": "85.13.131.92",
+            "content-length": "2684",
+            "cf-connecting-ip": "85.13.131.92",
+            "accept-encoding": "gzip, br",
+            "x-forwarded-host": "workflows.sociab.li",
+            "x-forwarded-proto": "https",
+            "content-type": "application/json",
+            "authorization": "Bearer SAFTIG1great@gattung",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "accept": "*/*",
+            "cdn-loop": "cloudflare; loops=1",
+            "x-forwarded-server": "TXL",
+            "cf-ipcountry": "DE",
+            "x-request-id": "b71ddf9b-93c4-9545-a1d6-154cf4df7b37",
+            "x-koyeb-route": "15e785fd-4492-4458-920b-41ac43a47090-5678_prod",
+            "x-koyeb-service-id": "15e785fd-4492-4458-920b-41ac43a47090",
+            "x-koyeb-host-port": "15e785fd-4492-4458-920b-41ac43a47090:5678",
+            "x-koyeb-original-host": "workflows.sociab.li",
+            "x-koyeb-glb": "fra",
+            "x-envoy-original-path": "/webhook/79efd29a-0ab2-45f1-bec9-a0262bf0a22c",
+            "x-koyeb-backend": "fra",
+            "x-b3-traceid": "4d0cd6a02a624a0e",
+            "x-b3-spanid": "b88b5bf30c8a565e",
+            "x-b3-parentspanid": "4bb008aa328e1494",
+            "x-b3-sampled": "1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "uuid": "TlXiXHmku5AKS66q",
+            "url": "https://yadl.info/en/@/page/TlXiXHmku5AKS66q",
+            "title": "Weekly review cw 15",
+            "intro": "It was a busy week of podcast recordings and the challenge in React of keeping the URL in sync with the state of a table.",
+            "text": "### Run, Forest, Run\nI've continued to keep up my running. I haven't reached 12 miles (approx. 19 km) yet. However, running every day is progress I'm very proud of. My calf has been aching since Monday. With a [massager (Amazon affiliate link)](https://amzn.to/4ic2er0), I can loosen up the muscles while watching series in the evening.\n\n- **Monday** run 14 km.\n- **Tuesday** run 14 km.\n- **Wednesday** run 13 km.\n- **Thursday** run 14 km.\n- **Friday,** go to the gym and rest my knee.\n- **Saturday** run 15 km.\n- **Sunday** Ditsch tournament at NTSV.\n\n### React State Management\nThis week, I noticed on the front end that the data for our application was being loaded multiple times. The cause lies in our feature that keeps the URL synchronized with the state of the table, allowing users to send the URL as a link. The same filters are set when the link is opened, and sorting and pagination are used. The interaction between the data display and the filters led to repeated loading of the data records. In due time, this would lead to enormous performance problems.\n\nWhen the page was accessed, the data was loaded, and the filters were set and reloaded. The cause was the effect that the filter components triggered a \"change event\" when setting their state. I listened for this event to load appropriate data. Once I understood the problem, I solved it with a local initial render state: The first change event when setting the state was skipped, and the issue was over.\n\n### Server Side Stories\nTypically, the first Monday of the month is our recording day for my podcast. This month, however, the date had to be postponed because we had a guest with us. We moved into Maurice's band's rehearsal room, where we had to make the necessary arrangements.\n\nThe dynamic in a three-way conversation is different from a dialogue. This is especially true because the guest has a lot of speaking time, and we ask short questions, which reduces our own speaking time. During the recording, an almost painful desire to say something developed. Maurice reflected on this feeling afterward. I was reassured that I wasn't the only one feeling this way. The urge seemed so selfish and strange. This was an experiment that gave me a new experience. This is precisely how it should be.",
+            "image": "https://yadl.info/media/pages/blog/2025/weekly-review-cw-15/07c9c84790-1743753543/cw15.jpg",
+            "template": "post"
+          },
+          "webhookUrl": "https://workflows.sociab.li/webhook/79efd29a-0ab2-45f1-bec9-a0262bf0a22c",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "repo_name": "sociabli-workflow-backup",
+  "repo_owner": "konzentrik",
+  "repo_path": "test2",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-13T13:38:17.317Z",
+  "versionId": "88cecfba-31e8-4f42-bb75-fe35f547af33"
+}
