@@ -1,0 +1,118 @@
+{
+  "active": true,
+  "connections": {
+    "Mastodon RSS Feed Trigger": {
+      "main": [
+        [
+          {
+            "node": "Retrieve all items from feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve all items from feed": {
+      "main": [
+        [
+          {
+            "node": "Webhook Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-02T10:38:20.058Z",
+  "id": "6mnbFK0WwnHKY6ad",
+  "meta": null,
+  "name": "Mastodon to Bluesky - user_2qO4kPQ30tSYZ7FwM5YcImVa76p",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "feedUrl": "https://c.im/@ooszyj.rss"
+      },
+      "id": "b4e6d6ad-8d62-4e9d-951b-ac9efa5898d4",
+      "name": "Mastodon RSS Feed Trigger",
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        680,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://webhook.sociab.li/mastodon-to-bluesky",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "ARNOLD-sklave4falle"
+            },
+            {
+              "name": "x-user-id",
+              "value": "user_2qO4kPQ30tSYZ7FwM5YcImVa76p"
+            },
+            {
+              "name": "x-sociabli-workflow-id",
+              "value": "ad2197b1-f565-473d-80fc-b4fddf38fda6"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={ \"link\": \"{{ $('Retrieve all items from feed').item.json.link }}\", \"contentSnippet\": {{ $('Retrieve all items from feed').item.json.contentSnippet.quote().replaceAll('\\n','\\\\n') }} }",
+        "options": {}
+      },
+      "id": "ba52d02d-0e5d-4bc7-aac4-120374437e1c",
+      "name": "Webhook Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return $('Mastodon RSS Feed Trigger').all();"
+      },
+      "id": "8038891a-3d9e-49dd-83f3-f5d91511fd31",
+      "name": "Retrieve all items from feed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        460
+      ]
+    }
+  ],
+  "pinData": {},
+  "repo_name": "sociabli-workflow-backup",
+  "repo_owner": "konzentrik",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Mastodon RSS Feed Trigger": {
+      "lastItemDate": "2025-03-24T14:32:10.000Z"
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-03T08:02:58.473Z",
+  "versionId": "4b3379ca-e0ea-40f4-a4f6-31a40443e473"
+}
