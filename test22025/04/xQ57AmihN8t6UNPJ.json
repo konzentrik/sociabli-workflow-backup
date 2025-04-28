@@ -1,0 +1,1990 @@
+{
+  "active": false,
+  "connections": {
+    "n8n": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Get file data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Items",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Get File": {
+      "main": [
+        [
+          {
+            "node": "Merge Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File is new": {
+      "main": [
+        [
+          {
+            "node": "Create new file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Items": {
+      "main": [
+        [
+          {
+            "node": "isDiffOrNew",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isDiffOrNew": {
+      "main": [
+        [
+          {
+            "node": "Create sub path",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status": {
+      "main": [
+        [
+          {
+            "node": "Same file - Do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "File is different",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "File is new",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get file data": {
+      "main": [
+        [
+          {
+            "node": "If file too large",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create new file": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create sub path": {
+      "main": [
+        [
+          {
+            "node": "Check Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Completed Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Failed Flows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Starting Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File is different": {
+      "main": [
+        [
+          {
+            "node": "Edit existing file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If file too large": {
+      "main": [
+        [
+          {
+            "node": "Get File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit existing file": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Starting Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Same file - Do nothing": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Starting Message": {
+      "main": [
+        [
+          {
+            "node": "n8n",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Failed Flows": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-28T10:36:08.784Z",
+  "id": "xQ57AmihN8t6UNPJ",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "GitHub workflows backup",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cc5b230d-1719-4633-980b-be190294f6c4",
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        480,
+        80
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Subworkflow",
+        "height": 731.7039821513649,
+        "width": 1910.7813046051347,
+        "color": 6
+      },
+      "id": "b0bdb6d6-0396-45fc-a8f6-39a79691ffe6",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        460
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "c6c7bf1f-92fb-4aca-9b20-90b4be343959",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        60,
+        840
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "filters": {},
+        "requestOptions": {}
+      },
+      "id": "c929b60f-22e7-4e01-9806-5e7155ef8754",
+      "name": "n8n",
+      "type": "n8n-nodes-base.n8n",
+      "position": [
+        880,
+        180
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "n8nApi": {
+          "id": "u0gMpxhGioiLKc3z",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8d513345-6484-431f-afb7-7cf045c90f4f",
+              "name": "Done",
+              "type": "boolean",
+              "value": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3e2ee1a6-e341-4f9c-b7b8-db72a00ec924",
+      "name": "Return",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1720,
+        660
+      ],
+      "typeVersion": 3.3
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.download_url }}",
+        "options": {}
+      },
+      "id": "853ee196-7d5f-49ba-a1c7-f85e6283d0d3",
+      "name": "Get File",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        680,
+        540
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "45ce825e-9fa6-430c-8931-9aaf22c42585",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.content }}",
+              "rightValue": ""
+            },
+            {
+              "id": "9619a55f-7fb1-4f24-b1a7-7aeb82365806",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.error }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "181738df-9db0-49e7-87b7-ee7423929b51",
+      "name": "If file too large",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        440,
+        560
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {},
+      "id": "6568fecb-b097-4671-aa63-93cfa77701f5",
+      "name": "Merge Items",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        440,
+        820
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "jsCode": "const orderJsonKeys = (jsonObj) => {\n  const ordered = {};\n  Object.keys(jsonObj).sort().forEach(key => {\n    ordered[key] = jsonObj[key];\n  });\n  return ordered;\n}\n\n// Check if file returned with content\nif (Object.keys($input.all()[0].json).includes(\"content\")) {\n  // Decode base64 content and parse JSON\n  const origWorkflow = JSON.parse(Buffer.from($input.all()[0].json.content, 'base64').toString());\n  const n8nWorkflow = $input.all()[1].json;\n  \n  // Order JSON objects\n  const orderedOriginal = orderJsonKeys(origWorkflow);\n  const orderedActual = orderJsonKeys(n8nWorkflow);\n\n  // Determine difference\n  if (JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual)) {\n    $input.all()[0].json.github_status = \"same\";\n  } else {\n    $input.all()[0].json.github_status = \"different\";\n    $input.all()[0].json.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n  }\n  $input.all()[0].json.content_decoded = orderedOriginal;\n// No file returned / new workflow\n} else if (Object.keys($input.all()[0].json).includes(\"data\")) {\n  const origWorkflow = JSON.parse($input.all()[0].json.data);\n  const n8nWorkflow = $input.all()[1].json;\n  \n  // Order JSON objects\n  const orderedOriginal = orderJsonKeys(origWorkflow);\n  const orderedActual = orderJsonKeys(n8nWorkflow);\n\n  // Determine difference\n  if (JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual)) {\n    $input.all()[0].json.github_status = \"same\";\n  } else {\n    $input.all()[0].json.github_status = \"different\";\n    $input.all()[0].json.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n  }\n  $input.all()[0].json.content_decoded = orderedOriginal;\n\n} else {\n  // Order JSON object\n  const n8nWorkflow = $input.all()[1].json;\n  const orderedActual = orderJsonKeys(n8nWorkflow);\n  \n  // Proper formatting\n  $input.all()[0].json.github_status = \"new\";\n  $input.all()[0].json.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n}\n\n// Return items\nreturn $input.all();\n"
+      },
+      "id": "c11d4378-9d2d-4391-b868-0899ec53e52e",
+      "name": "isDiffOrNew",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        640,
+        820
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{$json.github_status}}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "same"
+            },
+            {
+              "value2": "different",
+              "output": 1
+            },
+            {
+              "value2": "new",
+              "output": 2
+            }
+          ]
+        }
+      },
+      "id": "93b05745-9e89-4e05-b3de-0ca140e23422",
+      "name": "Check Status",
+      "type": "n8n-nodes-base.switch",
+      "position": [
+        1040,
+        820
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "c3ac33c0-7954-463f-b7fd-d7df66e70c3c",
+      "name": "Same file - Do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        1260,
+        660
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "ae9578e6-68dc-4313-bc1e-ccec22e41623",
+      "name": "File is different",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        1260,
+        820
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "70f0ac2d-d93c-4402-a696-e2cda41ba3fe",
+      "name": "File is new",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        1260,
+        1020
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "={{ $('Config').first().json.repo_owner }}",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "={{ $('Config').first().json.repo_name }}",
+          "mode": "name"
+        },
+        "filePath": "={{ $('Config').first().json.repo_path }}{{ $json.subPath }}{{$('Execute Workflow Trigger').first().json.id}}.json",
+        "fileContent": "={{$('isDiffOrNew').item.json[\"n8n_data_stringy\"]}}",
+        "commitMessage": "={{$('Execute Workflow Trigger').first().json.name}} ({{$json.github_status}})"
+      },
+      "id": "10bf9517-b0ac-4d19-9aad-9bebf80ffcc3",
+      "name": "Create new file",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        1480,
+        1020
+      ],
+      "typeVersion": 1,
+      "webhookId": "6045fcde-5df0-4832-8d52-50e11c396a27",
+      "credentials": {
+        "githubApi": {
+          "id": "dL545cDnEozynzd2",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "edit",
+        "owner": {
+          "__rl": true,
+          "value": "={{ $('Config').first().json.repo_owner }}",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "={{ $('Config').first().json.repo_name }}",
+          "mode": "name"
+        },
+        "filePath": "={{ $('Config').first().json.repo_path }}{{ $('Config').first().json.repo_path }}{{ $json.subPath }}{{$('Execute Workflow Trigger').first().json.id}}.json",
+        "fileContent": "={{$('isDiffOrNew').item.json[\"n8n_data_stringy\"]}}",
+        "commitMessage": "={{$('Execute Workflow Trigger').first().json.name}} ({{$json.github_status}})"
+      },
+      "id": "a152761a-796a-4b67-8ec5-c447c0762376",
+      "name": "Edit existing file",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        1480,
+        820
+      ],
+      "typeVersion": 1,
+      "webhookId": "2e112833-7a0d-4877-8aaa-68647c5e334f",
+      "credentials": {
+        "githubApi": {
+          "id": "dL545cDnEozynzd2",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "baad6883-11ef-43eb-b0ed-cc08ea9c95db",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        1080,
+        180
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 1,
+              "triggerAtMinute": 33
+            }
+          ]
+        }
+      },
+      "id": "88ce25da-00b9-4299-a0c4-ccce6f5cfbf4",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        480,
+        280
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dae43d3b-56e5-4098-b602-862ebf5cd073",
+              "name": "subPath",
+              "type": "string",
+              "value": "={{ $('Execute Workflow Trigger').first().json.createdAt.split('-')[0] }}/{{ $('Execute Workflow Trigger').first().json.createdAt.split('-')[1] }}/"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "603d2b08-cba5-4733-8541-5be78c43400b",
+      "name": "Create sub path",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        840,
+        820
+      ],
+      "typeVersion": 3.3
+    },
+    {
+      "parameters": {
+        "content": "## Backup to GitHub \nThis workflow will backup all instance workflows to GitHub every 24 hours.\n\nThe files are saved into folders using `YYYY/MM/` for the directory path and `ID.json` for the filename.\n\nThe Repo Owner, Repo Name and Main folder are set using the **Variables** feature but can be replaced with the `Config` node in the subworkflow. \n\nThe workflow runs calls itself to help reduce memory usage, Once the workflow has completed it will send an optional notification to Slack.\n\n### Time to Run\nTested with 1423 workflows on `1.44.1` it took under 30 minutes for the first run and under 12 minutes once the initial run is complete.",
+        "height": 417,
+        "width": 385,
+        "color": 4
+      },
+      "id": "da9ee133-0b9d-44de-b3e7-a34872d0cf98",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Main workflow loop",
+        "height": 416.1856906618075,
+        "width": 1272.6408145680155,
+        "color": 7
+      },
+      "id": "f6d7b88c-b0b1-4848-8b73-cac93f72cff1",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        440,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "workflowId": "={{ $workflow.id }}",
+        "mode": "each",
+        "options": {}
+      },
+      "id": "fc817794-ccfe-4527-bb4a-ff3c6a0ee9c4",
+      "name": "Execute Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        1300,
+        200
+      ],
+      "typeVersion": 1,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "={{ $('Config').first().json.repo_owner }}",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "={{ $('Config').first().json.repo_name }}",
+          "mode": "name"
+        },
+        "filePath": "={{ $('Config').first().json.repo_path }}{{ $('Execute Workflow Trigger').first().json.createdAt.split('-')[0] }}/{{ $('Execute Workflow Trigger').first().json.createdAt.split('-')[1] }}/{{$json.id}}.json",
+        "asBinaryProperty": false,
+        "additionalParameters": {}
+      },
+      "id": "465cdb39-4550-401e-870d-b015b7cf84e4",
+      "name": "Get file data",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        240,
+        560
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true,
+      "webhookId": "ce27cecb-1f84-4af1-a43c-ec61f2c44121",
+      "credentials": {
+        "githubApi": {
+          "id": "dL545cDnEozynzd2",
+          "name": "GitHub account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8f6d1741-772f-462a-811f-4c334185e4f0",
+              "name": "=repo_owner",
+              "type": "string",
+              "value": "konzentrik"
+            },
+            {
+              "id": "8cac215c-4fd7-422f-9fd2-6b2d1e5e0383",
+              "name": "=repo_name",
+              "type": "string",
+              "value": "sociabli-workflow-backup"
+            },
+            {
+              "id": "eee305e9-4164-462a-86bd-80f0d58a31ae",
+              "name": "=repo_path",
+              "type": "string",
+              "value": "test2"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "45c64f19-d357-4b87-839c-9b376c406f93",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        240,
+        840
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=Starting Workflow Backup [{{ $execution.id }}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        680,
+        180
+      ],
+      "id": "81703eb2-3933-4576-9b1a-7bd5fe9b57f1",
+      "name": "Starting Message",
+      "webhookId": "a7859dfa-19a6-47c4-a21b-35b7e9868774",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "XlcfHXriBUvKnsIj",
+          "name": "Discord Webhook Url"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=✅ Backup has completed - {{ $('n8n').all().length }} workflows have been processed.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        40
+      ],
+      "id": "f5069397-3d96-4194-8b8f-6de7d50065c0",
+      "name": "Completed Notification",
+      "webhookId": "a7859dfa-19a6-47c4-a21b-35b7e9868774",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "XlcfHXriBUvKnsIj",
+          "name": "Discord Webhook Url"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=:x: Failed to backup {{ $('Loop Over Items').item.json.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        1500,
+        220
+      ],
+      "id": "7350f7a9-836b-40e0-8ca3-d58553e0eb83",
+      "name": "Failed Flows",
+      "webhookId": "a7859dfa-19a6-47c4-a21b-35b7e9868774",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "XlcfHXriBUvKnsIj",
+          "name": "Discord Webhook Url"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "createdAt": "2025-03-31T08:45:40.817Z",
+          "updatedAt": "2025-04-17T11:02:03.865Z",
+          "id": "zTpX2FmnREzNzUi4",
+          "name": "Sociabli - Mastodon to Bluesky",
+          "active": true,
+          "nodes": [
+            {
+              "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "const originalItem = $('Webhook for user calls').item.json.body;\nconst jsonContent = $('HTTP Get Mastodon Status').item.json;\n\nreturn {\n  jsonContent,\n  originalItem,\n}"
+              },
+              "id": "9fd873df-6084-42e7-9fe9-64fe0e6e0fd3",
+              "name": "Extract JSON from response",
+              "type": "n8n-nodes-base.code",
+              "typeVersion": 2,
+              "position": [
+                -1520,
+                420
+              ]
+            },
+            {
+              "parameters": {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "67ee67a6-9707-488d-84be-79bf9b8f87bb",
+                      "leftValue": "={{ $json.jsonContent.in_reply_to_id }}",
+                      "rightValue": "",
+                      "operator": {
+                        "type": "string",
+                        "operation": "empty",
+                        "singleValue": true
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "options": {}
+              },
+              "id": "1590b9c2-07ae-4bd2-9f33-803c16ad6c5c",
+              "name": "Filter relevant entries",
+              "type": "n8n-nodes-base.filter",
+              "typeVersion": 2.2,
+              "position": [
+                -1300,
+                420
+              ]
+            },
+            {
+              "parameters": {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "f7f2e862-1e5e-4719-aeea-d9516a0b2b43",
+                      "leftValue": "={{ $json.jsonContent.media_attachments }}",
+                      "rightValue": "",
+                      "operator": {
+                        "type": "array",
+                        "operation": "empty",
+                        "singleValue": true
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "options": {}
+              },
+              "id": "41103538-74a6-4b2e-9c06-d44baf51d1f7",
+              "name": "If has no attachment",
+              "type": "n8n-nodes-base.if",
+              "typeVersion": 2.2,
+              "position": [
+                -1080,
+                420
+              ]
+            },
+            {
+              "parameters": {
+                "fieldToSplitOut": "jsonContent.media_attachments",
+                "options": {}
+              },
+              "id": "1e3d061b-1570-47eb-9f3b-8914f234ce99",
+              "name": "Split Out Attachments",
+              "type": "n8n-nodes-base.splitOut",
+              "typeVersion": 1,
+              "position": [
+                -860,
+                520
+              ]
+            },
+            {
+              "parameters": {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "6ad6ac96-8fe2-48a3-9837-b4c7f5281e16",
+                      "leftValue": "={{ $json.type }}",
+                      "rightValue": "image",
+                      "operator": {
+                        "type": "string",
+                        "operation": "startsWith"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "options": {}
+              },
+              "id": "15de5fc5-fe96-49d4-9abb-0333ccced6b2",
+              "name": "Filter images",
+              "type": "n8n-nodes-base.filter",
+              "typeVersion": 2.2,
+              "position": [
+                -660,
+                520
+              ]
+            },
+            {
+              "parameters": {
+                "method": "POST",
+                "url": "https://bsky.social/xrpc/com.atproto.repo.uploadBlob",
+                "sendHeaders": true,
+                "headerParameters": {
+                  "parameters": [
+                    {
+                      "name": "Authorization",
+                      "value": "=Bearer {{ $('Bluesky Auth validation').first().json.accessJwt }}"
+                    },
+                    {
+                      "name": "Content-type",
+                      "value": "={{ $('Resize if needed').item.binary.data.mimeType }}"
+                    }
+                  ]
+                },
+                "sendBody": true,
+                "contentType": "binaryData",
+                "inputDataFieldName": "data",
+                "options": {}
+              },
+              "id": "40d0e6ac-1888-4cb2-9de1-550448409ddc",
+              "name": "Upload image",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                -40,
+                520
+              ]
+            },
+            {
+              "parameters": {
+                "url": "={{ $json.url }}",
+                "options": {
+                  "response": {
+                    "response": {
+                      "responseFormat": "file"
+                    }
+                  }
+                }
+              },
+              "id": "1f98052d-da9a-41a1-859a-934be50b199f",
+              "name": "Fetch image as binary stream",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                -440,
+                520
+              ]
+            },
+            {
+              "parameters": {
+                "jsCode": "const aggregateData = $('Aggregate uploaded images').first().json.data;\n\nconst temp = aggregateData.map((item, index) => {\n  try {\n    const originalEntry = $('Filter relevant entries').first().json.jsonContent.media_attachments[index];\n    \n    return {\n      alt: originalEntry.description || '',  \n      image: item.blob,\n      aspectRatio: {\n        width: originalEntry.meta.small.width,\n        height: originalEntry.meta.small.height,\n      }\n    }\n  } catch {\n    // if access to original image fails, we return the minimum amount of data to continue\n    return {\n      alt: '',  \n      image: item.blob,\n    }    \n  }\n});\n\nreturn {data: JSON.stringify(temp)};"
+              },
+              "id": "f7b1c8c9-8ff7-4f5e-9c79-628b29b2943e",
+              "name": "Transform uploaded blob data",
+              "type": "n8n-nodes-base.code",
+              "typeVersion": 2,
+              "position": [
+                380,
+                520
+              ]
+            },
+            {
+              "parameters": {
+                "aggregate": "aggregateAllItemData",
+                "options": {}
+              },
+              "id": "02db2e0a-594e-49f5-8f98-bb5a14abb531",
+              "name": "Aggregate uploaded images",
+              "type": "n8n-nodes-base.aggregate",
+              "typeVersion": 1,
+              "position": [
+                160,
+                520
+              ]
+            },
+            {
+              "parameters": {
+                "operation": "resize",
+                "width": 950,
+                "height": 534,
+                "resizeOption": "onlyIfLarger",
+                "options": {}
+              },
+              "id": "992e10e9-d99c-412f-9c8d-0acfd6bb5f36",
+              "name": "Resize if needed",
+              "type": "n8n-nodes-base.editImage",
+              "typeVersion": 1,
+              "position": [
+                -240,
+                520
+              ]
+            },
+            {
+              "parameters": {
+                "options": {
+                  "reset": false
+                }
+              },
+              "id": "d6df053f-08c4-40c8-9f50-6bcd2fc486f1",
+              "name": "Loop",
+              "type": "n8n-nodes-base.splitInBatches",
+              "typeVersion": 3,
+              "position": [
+                -200,
+                220
+              ]
+            },
+            {
+              "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "function splitIntoChunks(input, maxChunkSize) {\n  const chunks = []\n  let currentChunk = \"\"\n\n  // Split the text into words\n  const words = input.split(/\\s+/)\n\n  for (const word of words) {\n    // we can add current word into chunk\n    if (currentChunk.length + word.length + 1 <= maxChunkSize) {\n      // Add the word to the current chunk and consider spacing\n      currentChunk += (currentChunk.length > 0 ? \" \" : \"\") + word\n    } else {\n  \t  const remainingSpace = maxChunkSize - currentChunk.length - 1;\n      let startIndex = 0\n      \n    \t// special case: for very long words, we break the word into pieces, if enough space remaining\n      // BUT we do not split links\n      if (currentChunk && remainingSpace > 50 && !word.startsWith('http')) {\n        currentChunk += (currentChunk.length > 0 ? \" \" : \"\") + word.slice(0, remainingSpace);\n        startIndex = remainingSpace\n      }\n      \n      // so we add the current chunk to the result array\n      if (currentChunk) {\n        chunks.push(currentChunk)\n      }\n\n      // Handle word with empty chunk at hand\n      currentChunk = \"\"\n\n      // Handle words longer than maxChunkSize\n      if (word.length > maxChunkSize) {\n        while (startIndex < word.length) {\n          const part = word.slice(startIndex, startIndex + maxChunkSize)\n          chunks.push(part)\n          startIndex += maxChunkSize\n        }\n      } else {\n        // Start a new chunk with the current word\n        currentChunk = word\n      }\n    }\n  }\n\n  // Add any remaining content in the current chunk\n  if (currentChunk) {\n    chunks.push(currentChunk)\n  }\n\n  return chunks\n}\n\nconst inputText = $('If has no attachment').first().json.originalItem.contentSnippet;\n\nconst textChunks = splitIntoChunks(inputText, 290);\n\nreturn { json: { chunks: textChunks } };"
+              },
+              "id": "bd301148-ce3e-4e3e-8ba1-308d5ab29989",
+              "name": "Split text",
+              "type": "n8n-nodes-base.code",
+              "typeVersion": 2,
+              "position": [
+                -840,
+                220
+              ]
+            },
+            {
+              "parameters": {},
+              "id": "dd0a1f87-dee4-483b-ac9f-79405fee0602",
+              "name": "No Operation, do nothing",
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+              "position": [
+                0,
+                0
+              ]
+            },
+            {
+              "parameters": {
+                "fieldToSplitOut": "chunks",
+                "options": {}
+              },
+              "id": "dfbc727f-34fe-4aad-98be-2da026ad75fa",
+              "name": "Split Out",
+              "type": "n8n-nodes-base.splitOut",
+              "typeVersion": 1,
+              "position": [
+                -620,
+                220
+              ]
+            },
+            {
+              "parameters": {
+                "method": "POST",
+                "url": "https://bsky.social/xrpc/com.atproto.repo.createRecord",
+                "sendHeaders": true,
+                "headerParameters": {
+                  "parameters": [
+                    {
+                      "name": "Authorization",
+                      "value": "=Bearer {{ $('Bluesky Auth validation').first().json.accessJwt }}"
+                    }
+                  ]
+                },
+                "sendBody": true,
+                "contentType": "raw",
+                "rawContentType": "application/json",
+                "body": "={\n  \"repo\": \"{{ $('HTTP Sociabli Workflow data').first().json.connection_to.configuration.userHandle.replace('@','').toLowerCase() }}\",\n  \"collection\": \"app.bsky.feed.post\",\n  \"record\": {\n    \"$type\": \"app.bsky.feed.post\",\n    \"text\": {{ $json.text.quote().replaceAll('||','\\\\n') }},\n    \"facets\": {{ $json.facets.toJsonString() }},\n    \"createdAt\": \"{{ $('Filter relevant entries').first().json.jsonContent.created_at }}\"\n  }\n}",
+                "options": {
+                  "response": {
+                    "response": {}
+                  }
+                }
+              },
+              "id": "d3911b57-0044-4d12-8cdd-52c8776a5d73",
+              "name": "Bluesky First Post",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                280,
+                100
+              ]
+            },
+            {
+              "parameters": {
+                "method": "POST",
+                "url": "https://bsky.social/xrpc/com.atproto.repo.createRecord",
+                "sendHeaders": true,
+                "headerParameters": {
+                  "parameters": [
+                    {
+                      "name": "Authorization",
+                      "value": "=Bearer {{ $('Bluesky Auth validation').first().json.accessJwt }}"
+                    }
+                  ]
+                },
+                "sendBody": true,
+                "contentType": "raw",
+                "rawContentType": "application/json",
+                "body": "={\n  \"repo\": \"{{ $('HTTP Sociabli Workflow data').first().json.connection_to.configuration.userHandle.replace('@','').toLowerCase() }}\",\n  \"collection\": \"app.bsky.feed.post\",\n  \"record\": {\n    \"$type\": \"app.bsky.feed.post\",\n    \"text\": {{ $json.text.quote().replaceAll('||','\\\\n') }},\n    \"facets\": {{ $json.facets.toJsonString() }},\n    \"createdAt\": \"{{ $now }}\",\n    \"reply\": {\n      \"root\": {\n        \"uri\": \"{{ $('Bluesky First Post').first().json.uri }}\",\n        \"cid\": \"{{ $('Bluesky First Post').first().json.cid }}\"\n      },\n      \"parent\": {\n        \"uri\": \"{{ $runIndex === 0 ? $('Bluesky First Post').first().json.uri : $('Create Bluesky Thread').first(0, $runIndex-1).json.uri }}\",\n        \"cid\": \"{{ $runIndex === 0 ? $('Bluesky First Post').first().json.cid : $('Create Bluesky Thread').first(0, $runIndex-1).json.cid }}\"\n      }\n    }\n  }\n}",
+                "options": {
+                  "response": {
+                    "response": {}
+                  }
+                }
+              },
+              "id": "bc192a30-1297-4291-aa1a-28d23b8c4c9a",
+              "name": "Create Bluesky Thread",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                280,
+                260
+              ]
+            },
+            {
+              "parameters": {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "76d518f8-6af7-4c47-8bcf-a0a21321b342",
+                      "leftValue": "={{ $runIndex }}",
+                      "rightValue": 0,
+                      "operator": {
+                        "type": "number",
+                        "operation": "equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "options": {}
+              },
+              "id": "cf41f7e4-211c-42aa-8989-374eb66e1e39",
+              "name": "If",
+              "type": "n8n-nodes-base.if",
+              "typeVersion": 2.2,
+              "position": [
+                0,
+                200
+              ]
+            },
+            {
+              "parameters": {},
+              "id": "0ab9520f-0772-4cca-b0bc-fe89b0fb101f",
+              "name": "NoOp to merge if",
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+              "position": [
+                560,
+                260
+              ]
+            },
+            {
+              "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "function splitIntoChunks(input, maxChunkSize) {\n  const chunks = []\n  let currentChunk = \"\"\n\n  // Split the text into words\n  const words = input.split(/\\s+/)\n\n  for (const word of words) {\n    // we can add current word into chunk\n    if (currentChunk.length + word.length + 1 <= maxChunkSize) {\n      // Add the word to the current chunk and consider spacing\n      currentChunk += (currentChunk.length > 0 ? \" \" : \"\") + word\n    } else {\n  \t  const remainingSpace = maxChunkSize - currentChunk.length - 1;\n      let startIndex = 0\n      \n    \t// special case: for very long words, we break the word into pieces, if enough space remaining\n      // BUT we do not split links\n      if (currentChunk && remainingSpace > 50 && !word.startsWith('http')) {\n        currentChunk += (currentChunk.length > 0 ? \" \" : \"\") + word.slice(0, remainingSpace);\n        startIndex = remainingSpace\n      }\n      \n      // so we add the current chunk to the result array\n      if (currentChunk) {\n        chunks.push(currentChunk)\n      }\n\n      // Handle word with empty chunk at hand\n      currentChunk = \"\"\n\n      // Handle words longer than maxChunkSize\n      if (word.length > maxChunkSize) {\n        while (startIndex < word.length) {\n          const part = word.slice(startIndex, startIndex + maxChunkSize)\n          chunks.push(part)\n          startIndex += maxChunkSize\n        }\n      } else {\n        // Start a new chunk with the current word\n        currentChunk = word\n      }\n    }\n  }\n\n  // Add any remaining content in the current chunk\n  if (currentChunk) {\n    chunks.push(currentChunk)\n  }\n\n  return chunks\n}\n\nconst inputText = $('If has no attachment').first().json.originalItem.contentSnippet;\n\nconst textChunks = splitIntoChunks(inputText, 290);\n\nreturn { json: { chunks: textChunks } };"
+              },
+              "id": "00a3e060-9e65-4840-9da8-887762fb40ab",
+              "name": "Split text for attachment",
+              "type": "n8n-nodes-base.code",
+              "typeVersion": 2,
+              "position": [
+                -860,
+                800
+              ]
+            },
+            {
+              "parameters": {
+                "fieldToSplitOut": "chunks",
+                "options": {}
+              },
+              "id": "21f5e3c2-f359-4e3b-8735-d758b62cf0f5",
+              "name": "Split Out for attachment text",
+              "type": "n8n-nodes-base.splitOut",
+              "typeVersion": 1,
+              "position": [
+                -620,
+                800
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "e6398f78-6881-4897-abc6-56b976717593",
+              "name": "Loop Over attachment text items",
+              "type": "n8n-nodes-base.splitInBatches",
+              "typeVersion": 3,
+              "position": [
+                -220,
+                800
+              ]
+            },
+            {
+              "parameters": {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "76d518f8-6af7-4c47-8bcf-a0a21321b342",
+                      "leftValue": "={{ $runIndex }}",
+                      "rightValue": 0,
+                      "operator": {
+                        "type": "number",
+                        "operation": "equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "options": {}
+              },
+              "id": "ec5f472d-78de-4fef-bb56-a0f6643da958",
+              "name": "If attachment loop",
+              "type": "n8n-nodes-base.if",
+              "typeVersion": 2.2,
+              "position": [
+                0,
+                920
+              ]
+            },
+            {
+              "parameters": {},
+              "id": "f47526cd-053b-4566-99d8-2aa61d73a740",
+              "name": "NoOp Loop attachment done",
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+              "position": [
+                0,
+                740
+              ]
+            },
+            {
+              "parameters": {
+                "method": "POST",
+                "url": "https://bsky.social/xrpc/com.atproto.repo.createRecord",
+                "sendHeaders": true,
+                "headerParameters": {
+                  "parameters": [
+                    {
+                      "name": "Authorization",
+                      "value": "=Bearer {{ $('Bluesky Auth validation').first().json.accessJwt }}"
+                    }
+                  ]
+                },
+                "sendBody": true,
+                "contentType": "raw",
+                "rawContentType": "application/json",
+                "body": "={\n  \"repo\": \"{{ $('HTTP Sociabli Workflow data').first().json.connection_to.configuration.userHandle.replace('@','').toLowerCase() }}\",\n  \"collection\": \"app.bsky.feed.post\",\n  \"record\": {\n    \"$type\": \"app.bsky.feed.post\",\n    \"text\": {{ $json.text.quote().replaceAll('||','\\\\n') }},\n    \"facets\": {{ $json.facets.toJsonString() }},\n    \"createdAt\": \"{{ $now }}\",\n    \"reply\": {\n      \"root\": {\n        \"uri\": \"{{ $('Create Bluesky Post with images').first().json.uri }}\",\n        \"cid\": \"{{ $('Create Bluesky Post with images').first().json.cid }}\"\n      },\n      \"parent\": {\n        \"uri\": \"{{ $runIndex === 0 ? $('Create Bluesky Post with images').first().json.uri : $('Create Bluesky Thread attachment').first(0, $runIndex-1).json.uri }}\",\n        \"cid\": \"{{ $runIndex === 0 ? $('Create Bluesky Post with images').first().json.cid : $('Create Bluesky Thread attachment').first(0, $runIndex-1).json.cid }}\"\n      }\n    }\n  }\n}",
+                "options": {
+                  "response": {
+                    "response": {}
+                  }
+                }
+              },
+              "id": "c73bc600-d678-4c5e-84d5-5838aa9a5a10",
+              "name": "Create Bluesky Thread attachment",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                300,
+                980
+              ]
+            },
+            {
+              "parameters": {
+                "method": "POST",
+                "url": "https://bsky.social/xrpc/com.atproto.repo.createRecord",
+                "sendHeaders": true,
+                "headerParameters": {
+                  "parameters": [
+                    {
+                      "name": "Authorization",
+                      "value": "=Bearer {{ $('Bluesky Auth validation').first().json.accessJwt }}"
+                    }
+                  ]
+                },
+                "sendBody": true,
+                "contentType": "raw",
+                "rawContentType": "application/json",
+                "body": "={\n  \"repo\": \"{{ $('HTTP Sociabli Workflow data').first().json.connection_to.configuration.userHandle.replace('@','').toLowerCase() }}\",\n  \"collection\": \"app.bsky.feed.post\",\n  \"record\": {\n    \"$type\": \"app.bsky.feed.post\",\n    \"createdAt\": \"{{ $('Filter relevant entries').first().json.jsonContent.created_at }}\",\n    \"text\": {{ $json.text.quote().replaceAll('||','\\\\n') }},\n    \"facets\": {{ $json.facets.toJsonString() }},\n    \"embed\": {\n      \"$type\": \"app.bsky.embed.images\",\n      \"images\": {{ $('Transform uploaded blob data').item.json.data }}\n    }\n  }\n}",
+                "options": {}
+              },
+              "id": "7982a663-87d2-4d83-b019-976c082c9903",
+              "name": "Create Bluesky Post with images",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                300,
+                780
+              ],
+              "executeOnce": true
+            },
+            {
+              "parameters": {},
+              "id": "99e219de-76ae-492e-9e91-8bf03db9a7fe",
+              "name": "NoOp to merge if attachment",
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+              "position": [
+                580,
+                1000
+              ]
+            },
+            {
+              "parameters": {
+                "method": "POST",
+                "url": "https://sociab.li/.netlify/functions/blueskyFacetDetection",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "contentType": "raw",
+                "rawContentType": "application/json",
+                "body": "={\"contentSnippet\": {{ $json.chunks.replaceAll('\\n','||').quote() }} }",
+                "options": {
+                  "response": {
+                    "response": {}
+                  }
+                }
+              },
+              "id": "12984821-a5f5-4a11-a494-88b6a975b7ac",
+              "name": "Detect facets",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                -400,
+                220
+              ],
+              "credentials": {
+                "httpHeaderAuth": {
+                  "id": "kJekewJczE3kQ2z1",
+                  "name": "Netlify Token Sociabli"
+                }
+              }
+            },
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "mastodon-to-bluesky",
+                "authentication": "headerAuth",
+                "options": {}
+              },
+              "id": "821ed0ea-08f4-4fc5-b1d8-245e9f4cfaa7",
+              "name": "Webhook for user calls",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 2,
+              "position": [
+                -2720,
+                420
+              ],
+              "webhookId": "c7f998eb-eae7-4de9-9abf-39e8c8408435",
+              "credentials": {
+                "httpHeaderAuth": {
+                  "id": "MtH8NhJ2WVIxUvv1",
+                  "name": "Webhook Sociabli"
+                }
+              }
+            },
+            {
+              "parameters": {
+                "method": "POST",
+                "url": "https://sociab.li/.netlify/functions/blueskyFacetDetection",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "contentType": "raw",
+                "rawContentType": "application/json",
+                "body": "={\"contentSnippet\": {{ $json.chunks.replaceAll('\\n','||').quote() }} }",
+                "options": {
+                  "response": {
+                    "response": {}
+                  }
+                }
+              },
+              "id": "112a7cf0-a513-4a25-839b-6ffe5daa17bf",
+              "name": "Detect facets with attachment",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                -440,
+                800
+              ],
+              "credentials": {
+                "httpHeaderAuth": {
+                  "id": "kJekewJczE3kQ2z1",
+                  "name": "Netlify Token Sociabli"
+                }
+              }
+            },
+            {
+              "parameters": {
+                "jsCode": "const link = $input.first().json.body.link;\nconst splits = link.split('/');\n\n// in last item we have the status id\nconst statusId = splits.at(-1);\n\nreturn { statusId };"
+              },
+              "type": "n8n-nodes-base.code",
+              "typeVersion": 2,
+              "position": [
+                -2500,
+                420
+              ],
+              "id": "73887969-1222-4d98-bcca-1c9dbc24ba5c",
+              "name": "Extract status id from link"
+            },
+            {
+              "parameters": {
+                "method": "POST",
+                "url": "https://sociab.li/.netlify/functions/getUserWorkflowConnections",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "contentType": "raw",
+                "rawContentType": "application/json",
+                "body": "={\"sociabliWorkflowId\":\"{{ $('Webhook for user calls').item.json.headers['x-sociabli-workflow-id'] }}\"}",
+                "options": {}
+              },
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                -2280,
+                420
+              ],
+              "id": "fa51eb02-a69e-47eb-b324-25eb6c9ca4b2",
+              "name": "HTTP Sociabli Workflow data",
+              "credentials": {
+                "httpHeaderAuth": {
+                  "id": "kJekewJczE3kQ2z1",
+                  "name": "Netlify Token Sociabli"
+                }
+              }
+            },
+            {
+              "parameters": {
+                "url": "=https://{{ $('HTTP Sociabli Workflow data').item.json.connection_from.configuration.instanceHostname }}/api/v1/statuses/{{ $('Extract status id from link').item.json.statusId }}",
+                "sendHeaders": true,
+                "headerParameters": {
+                  "parameters": [
+                    {
+                      "name": "Authorization",
+                      "value": "=Bearer {{ $('HTTP Sociabli Workflow data').item.json.connection_from.configuration.accessToken }}"
+                    }
+                  ]
+                },
+                "options": {}
+              },
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                -1740,
+                420
+              ],
+              "id": "ea9d8cc5-f49d-4e5c-afcb-6e95d36bb673",
+              "name": "HTTP Get Mastodon Status"
+            },
+            {
+              "parameters": {
+                "method": "POST",
+                "url": "https://bsky.social/xrpc/com.atproto.server.createSession",
+                "sendBody": true,
+                "contentType": "raw",
+                "rawContentType": "application/json",
+                "body": "={\"identifier\": \"{{ $json.connection_to.configuration.userHandle.replace('@', '') }}\",\"password\": \"{{ $json.connection_to.configuration.appPassword }}\"}",
+                "options": {}
+              },
+              "id": "3be87e93-0499-4bb0-94e8-517c6c844b54",
+              "name": "Bluesky Auth validation",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+              "position": [
+                -2020,
+                420
+              ],
+              "executeOnce": true
+            }
+          ],
+          "connections": {
+            "Extract JSON from response": {
+              "main": [
+                [
+                  {
+                    "node": "Filter relevant entries",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Filter relevant entries": {
+              "main": [
+                [
+                  {
+                    "node": "If has no attachment",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "If has no attachment": {
+              "main": [
+                [
+                  {
+                    "node": "Split text",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "Split Out Attachments",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Split Out Attachments": {
+              "main": [
+                [
+                  {
+                    "node": "Filter images",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Filter images": {
+              "main": [
+                [
+                  {
+                    "node": "Fetch image as binary stream",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Fetch image as binary stream": {
+              "main": [
+                [
+                  {
+                    "node": "Resize if needed",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Upload image": {
+              "main": [
+                [
+                  {
+                    "node": "Aggregate uploaded images",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Transform uploaded blob data": {
+              "main": [
+                [
+                  {
+                    "node": "Split text for attachment",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Aggregate uploaded images": {
+              "main": [
+                [
+                  {
+                    "node": "Transform uploaded blob data",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Resize if needed": {
+              "main": [
+                [
+                  {
+                    "node": "Upload image",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Loop": {
+              "main": [
+                [
+                  {
+                    "node": "No Operation, do nothing",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "If",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Split text": {
+              "main": [
+                [
+                  {
+                    "node": "Split Out",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Split Out": {
+              "main": [
+                [
+                  {
+                    "node": "Detect facets",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Bluesky First Post": {
+              "main": [
+                [
+                  {
+                    "node": "NoOp to merge if",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Create Bluesky Thread": {
+              "main": [
+                [
+                  {
+                    "node": "NoOp to merge if",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "If": {
+              "main": [
+                [
+                  {
+                    "node": "Bluesky First Post",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "Create Bluesky Thread",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "NoOp to merge if": {
+              "main": [
+                [
+                  {
+                    "node": "Loop",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Split text for attachment": {
+              "main": [
+                [
+                  {
+                    "node": "Split Out for attachment text",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Split Out for attachment text": {
+              "main": [
+                [
+                  {
+                    "node": "Detect facets with attachment",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Loop Over attachment text items": {
+              "main": [
+                [
+                  {
+                    "node": "NoOp Loop attachment done",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "If attachment loop",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "If attachment loop": {
+              "main": [
+                [
+                  {
+                    "node": "Create Bluesky Post with images",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "Create Bluesky Thread attachment",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Create Bluesky Post with images": {
+              "main": [
+                [
+                  {
+                    "node": "NoOp to merge if attachment",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Create Bluesky Thread attachment": {
+              "main": [
+                [
+                  {
+                    "node": "NoOp to merge if attachment",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "NoOp to merge if attachment": {
+              "main": [
+                [
+                  {
+                    "node": "Loop Over attachment text items",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Detect facets": {
+              "main": [
+                [
+                  {
+                    "node": "Loop",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Webhook for user calls": {
+              "main": [
+                [
+                  {
+                    "node": "Extract status id from link",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Detect facets with attachment": {
+              "main": [
+                [
+                  {
+                    "node": "Loop Over attachment text items",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Extract status id from link": {
+              "main": [
+                [
+                  {
+                    "node": "HTTP Sociabli Workflow data",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "HTTP Sociabli Workflow data": {
+              "main": [
+                [
+                  {
+                    "node": "Bluesky Auth validation",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "HTTP Get Mastodon Status": {
+              "main": [
+                [
+                  {
+                    "node": "Extract JSON from response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Bluesky Auth validation": {
+              "main": [
+                [
+                  {
+                    "node": "HTTP Get Mastodon Status",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {
+            "executionOrder": "v1",
+            "callerPolicy": "workflowsFromSameOwner"
+          },
+          "staticData": null,
+          "meta": null,
+          "pinData": {
+            "Webhook for user calls": [
+              {
+                "json": {
+                  "headers": {
+                    "host": "workflows.sociab.li",
+                    "cf-ray": "931adf7f8849e50d-TXL",
+                    "x-forwarded-host": "webhook.sociab.li",
+                    "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
+                    "x-forwarded-for": "57.129.36.253,85.13.131.92",
+                    "accept-encoding": "gzip, br",
+                    "x-forwarded-server": "TXL",
+                    "x-forwarded-proto": "https",
+                    "user-agent": "axios/1.8.2",
+                    "x-sociabli-workflow-id": "428b9c9e-b097-480c-a905-7fc1be87bccd",
+                    "cf-visitor": "{\"scheme\":\"https\"}",
+                    "x-user-id": "user_2tWIrWvggRFE8bQhH9eimy39bmy",
+                    "authorization": "ARNOLD-sklave4falle",
+                    "cdn-loop": "cloudflare; loops=1",
+                    "cf-ipcountry": "DE",
+                    "content-type": "application/json",
+                    "cf-connecting-ip": "85.13.131.92",
+                    "content-length": "192",
+                    "x-request-id": "84b705ea-cc8c-9d84-9285-02db6c51b541",
+                    "x-koyeb-route": "15e785fd-4492-4458-920b-41ac43a47090-5678_prod",
+                    "x-koyeb-service-id": "15e785fd-4492-4458-920b-41ac43a47090",
+                    "x-koyeb-host-port": "15e785fd-4492-4458-920b-41ac43a47090:5678",
+                    "x-koyeb-original-host": "workflows.sociab.li",
+                    "x-koyeb-glb": "fra",
+                    "x-envoy-original-path": "/webhook/mastodon-to-bluesky",
+                    "x-koyeb-backend": "fra",
+                    "x-b3-traceid": "080da5514b7ebc7b",
+                    "x-b3-spanid": "972f24c2e366c26e",
+                    "x-b3-parentspanid": "3a097654cf1545b5",
+                    "x-b3-sampled": "1"
+                  },
+                  "params": {},
+                  "query": {},
+                  "body": {
+                    "link": "https://owo.cafe/@OrigamiArturo/114352578129544589",
+                    "contentSnippet": "Esto de intentar estar a la vez en varias redes sociales se está convirtiendo en un quebradero de cabeza."
+                  },
+                  "webhookUrl": "https://workflows.sociab.li/webhook/mastodon-to-bluesky",
+                  "executionMode": "production"
+                }
+              }
+            ]
+          },
+          "versionId": "41f5130d-70a7-484a-94c1-b199203c704e",
+          "triggerCount": 1,
+          "tags": []
+        }
+      }
+    ]
+  },
+  "repo_name": "sociabli-workflow-backup",
+  "repo_owner": "konzentrik",
+  "repo_path": "test2",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-28T11:10:35.267Z",
+  "versionId": "109c78ce-9174-43a2-b252-5d84e2cde721"
+}
