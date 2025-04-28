@@ -1,0 +1,904 @@
+{
+  "active": true,
+  "connections": {
+    "Get SVIX Headers": {
+      "main": [
+        [
+          {
+            "node": "Validate SVIX Headers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate SVIX Headers": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Create User",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create User": {
+      "main": [
+        [
+          {
+            "node": "Create Email password",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Email password": {
+      "main": [
+        [
+          {
+            "node": "Verify user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify user": {
+      "main": [
+        [
+          {
+            "node": "Create Api Key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Api Key": {
+      "main": [
+        [
+          {
+            "node": "Is Development environment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Webhook Token": {
+      "main": [
+        [
+          {
+            "node": "Create Webhook Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Webhook Credentials": {
+      "main": [
+        [
+          {
+            "node": "Create Main Workflow UUIDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Main Workflow": {
+      "main": [
+        [
+          {
+            "node": "Activate Main Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Main Workflow UUIDs": {
+      "main": [
+        [
+          {
+            "node": "Create Main Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Activate Main Workflow": {
+      "main": [
+        [
+          {
+            "node": "Is Development user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Clerk New User": {
+      "main": [
+        [
+          {
+            "node": "Get SVIX Headers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Development user": {
+      "main": [
+        [
+          {
+            "node": "Set \"dev, hideInUI\" tag for Main Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set \"hideInUi\" tag for Main Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Development environment": {
+      "main": [
+        [
+          {
+            "node": "Update Clerk Development user",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Clerk Production user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Clerk Production user": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Add User in Notion CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-03-25T08:12:28.648Z",
+  "id": "mwuMJOyrGYRxb98b",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Sociabli - Register new user",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const headers = $input.all()[0].json.headers;\nconst svixId = headers['svix-id'];\nconst svixTimestamp = headers['svix-timestamp'];\nconst svixSignature = headers['svix-signature'];\nconst payload = $input.all()[0].json.body;\nconst environment =  headers['x-environment'];\n\nreturn {\n  json: {\n    svixId,\n    svixTimestamp,\n    svixSignature,\n    payload,\n    environment,\n  }\n};"
+      },
+      "id": "eb67732a-5d35-46d2-a375-732f1398a980",
+      "name": "Get SVIX Headers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2640,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\n\n// Extract data from previous node\nconst { svixId, svixTimestamp, svixSignature, payload, environment } = $input.all()[0].json;\n\n// Your Svix secret key based on environment\nconst secret = environment === 'production'\n  ? 'whsec_W69HmAIqS5nGV73RuYarsNDX5BYI8nLh'\n  : 'whsec_QJKwPhyJPsTC+J4LFCzMG3pz90lSX56/';\n\n// Construct the signed content\nconst signedContent = `${svixId}.${svixTimestamp}.${JSON.stringify(payload)}`;\n\n// Decode the secret\nconst secretBytes = Buffer.from(secret.split('_')[1], 'base64');\n\n// Calculate the expected signature\nconst expectedSignature = crypto\n  .createHmac('sha256', secretBytes)\n  .update(signedContent)\n  .digest('base64');\n\n// Compare signatures\nconst receivedSignatures = svixSignature.split(' ');\nconst isValid = receivedSignatures.some(sig => {\n  const [version, signature] = sig.split(',');\n  return version === 'v1' && signature === expectedSignature;\n});\n\n// Check timestamp (optional, but recommended)\nconst tolerance = 5 * 60; // 5 minutes\nconst isTimestampValid = Math.abs(Date.now() / 1000 - parseInt(svixTimestamp)) < tolerance;\n\nreturn {\n  json: {\n    isValid: isValid && isTimestampValid,\n    payload\n  }\n};"
+      },
+      "id": "76b6a22f-3485-4670-8942-efe52cdb9cbf",
+      "name": "Validate SVIX Headers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2420,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "abf909a5-9557-4d3a-a4f6-99277d8a83d3",
+              "leftValue": "={{ $json.isValid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "737aab7d-459e-43da-89f3-ade4c7694797",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2200,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "errorMessage": "Invalid SVIX Headers provided"
+      },
+      "id": "7a0f41c5-c329-4436-9bc9-00dcaa4e24b0",
+      "name": "Stop and Error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        -1960,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://smoggy-rosabelle-konzentrik-754b049a.koyeb.app/api/v1/users",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "n8n_api_40d212e55bf8d20e2387658509c152f97b10d5e85f7fbcff891a12133bfdf474dce7a68c7e5a3126"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "=[\n  {\n    \"email\": \"crossposter+{{ $('Webhook Clerk New User').item.json.body.data.id }}@konzentrik.de\",\n    \"role\": \"global:member\"\n  }\n]",
+        "options": {}
+      },
+      "id": "e9d97c9b-d251-4407-9e8b-152a16bb8872",
+      "name": "Create User",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1960,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://smoggy-rosabelle-konzentrik-754b049a.koyeb.app/rest/invitations/{{ $('Create User').item.json.user.id }}/accept ",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "n8n_api_40d212e55bf8d20e2387658509c152f97b10d5e85f7fbcff891a12133bfdf474dce7a68c7e5a3126"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n  \"firstName\": \"{{ $('Webhook Clerk New User').item.json.body.data.first_name }}\",\n  \"inviterId\": \"ed0a5d6d-5331-4b90-abed-c783259d83ec\",\n  \"lastName\": \"{{ $('Webhook Clerk New User').item.json.body.data.last_name }}\",\n  \"password\": \"{{ $json.password }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "5e09b760-4bca-4ec8-a7dc-551a262bba18",
+      "name": "Verify user",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1580,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "function generatePassword(length = 12, options = {}) {\n  // Default options\n  const defaults = {\n    lowercase: true,\n    uppercase: true,\n    numbers: true,\n    symbols: true,\n    excludeSimilarCharacters: true,\n  };\n\n  // Merge provided options with defaults\n  const settings = { ...defaults, ...options };\n\n  // Character sets\n  const lowercaseChars = 'abcdefghjkmnpqrstuvwxyz';\n  const uppercaseChars = 'ABCDEFGHJKLMNPQRSTUVWXYZ';\n  const numberChars = '23456789';\n  const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';\n\n  // Construct the character pool based on options\n  let chars = '';\n  if (settings.lowercase) chars += lowercaseChars;\n  if (settings.uppercase) chars += uppercaseChars;\n  if (settings.numbers) chars += numberChars;\n  if (settings.symbols) chars += symbolChars;\n\n  // Remove similar characters if option is set\n  if (settings.excludeSimilarCharacters) {\n    chars = chars.replace(/[ilLoO01]/g, '');\n  }\n\n  // Generate the password\n  let password = '';\n  for (let i = 0; i < length; i++) {\n    const randomIndex = Math.floor(Math.random() * chars.length);\n    password += chars[randomIndex];\n  }\n\n  return password;\n}\n\n// Example usage:\nconst password = generatePassword(32, { symbols: false });\nreturn { password };"
+      },
+      "id": "503f5ad5-714d-4ba9-8604-fa290389e194",
+      "name": "Create Email password",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1780,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://smoggy-rosabelle-konzentrik-754b049a.koyeb.app/rest/api-keys",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "n8n_api_40d212e55bf8d20e2387658509c152f97b10d5e85f7fbcff891a12133bfdf474dce7a68c7e5a3126"
+            },
+            {
+              "name": "Cookie",
+              "value": "={{ $('Verify user').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n  \"label\":\"{{ $('Webhook Clerk New User').item.json.body.data.id }}-api-key\",\n  \"expiresAt\":null\n}",
+        "options": {}
+      },
+      "id": "9c6ffe6b-877a-4484-aa7a-3f257c763ddb",
+      "name": "Create Api Key",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1380,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://smoggy-rosabelle-konzentrik-754b049a.koyeb.app/api/v1/credentials",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "={{ $('Create Api Key').item.json.data.rawApiKey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n  \"data\": {\n    \"name\": \"Authorization\",\n    \"value\": \"Bearer {{ $json.password }}\"\n  },\n  \"name\": \"Kirby Webhook - {{ $('Webhook Clerk New User').item.json.body.data.id }}\",\n  \"type\": \"httpHeaderAuth\"\n}",
+        "options": {}
+      },
+      "id": "aed37f31-d494-41ba-b4b2-f01fdeeeddd1",
+      "name": "Create Webhook Credentials",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -840,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "function generatePassword(length = 12, options = {}) {\n  // Default options\n  const defaults = {\n    lowercase: true,\n    uppercase: true,\n    numbers: true,\n    symbols: true,\n    excludeSimilarCharacters: true,\n  };\n\n  // Merge provided options with defaults\n  const settings = { ...defaults, ...options };\n\n  // Character sets\n  const lowercaseChars = 'abcdefghjkmnpqrstuvwxyz';\n  const uppercaseChars = 'ABCDEFGHJKLMNPQRSTUVWXYZ';\n  const numberChars = '23456789';\n  const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';\n\n  // Construct the character pool based on options\n  let chars = '';\n  if (settings.lowercase) chars += lowercaseChars;\n  if (settings.uppercase) chars += uppercaseChars;\n  if (settings.numbers) chars += numberChars;\n  if (settings.symbols) chars += symbolChars;\n\n  // Remove similar characters if option is set\n  if (settings.excludeSimilarCharacters) {\n    chars = chars.replace(/[ilLoO01]/g, '');\n  }\n\n  // Generate the password\n  let password = '';\n  for (let i = 0; i < length; i++) {\n    const randomIndex = Math.floor(Math.random() * chars.length);\n    password += chars[randomIndex];\n  }\n\n  return password;\n}\n\n// Example usage:\nconst password = generatePassword(32, { symbols: false });\nreturn { password };"
+      },
+      "id": "734e01ad-6a45-464f-85aa-fedcd361b092",
+      "name": "Create Webhook Token",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://smoggy-rosabelle-konzentrik-754b049a.koyeb.app/api/v1/workflows",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "={{ $('Create Api Key').item.json.data.rawApiKey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n  \"name\": \"Main Workflow - {{ $('Webhook Clerk New User').item.json.body.data.id }}\",\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"httpMethod\": \"POST\",\n        \"path\": \"{{ $json.webhookUuid }}\",\n        \"authentication\": \"headerAuth\",\n        \"options\": {}\n      },\n      \"id\": \"{{ $json.nodeUuid }}\",\n      \"name\": \"Main Webhook\",\n      \"type\": \"n8n-nodes-base.webhook\",\n      \"typeVersion\": 2,\n      \"position\": [\n        -800,\n        540\n      ],\n      \"webhookId\": \"{{ $json.webhookUuid }}\",\n      \"credentials\": {\n        \"{{ $('Create Webhook Credentials').item.json.type }}\": {\n          \"id\": \"{{ $('Create Webhook Credentials').item.json.id }}\",\n          \"name\": \"{{ $('Create Webhook Credentials').item.json.name }}\"\n        }\n      }\n    }\n  ],\n  \"connections\": {},\n  \"settings\": {\n    \"executionOrder\": \"v1\"\n  }\n}",
+        "options": {}
+      },
+      "id": "e93bed21-0a69-465b-b3b6-8d0022ef55f4",
+      "name": "Create Main Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -400,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const uuid = require('uuid');\n\nreturn {\n  webhookUuid: uuid.v4(),\n  nodeUuid: uuid.v4(),\n};"
+      },
+      "id": "6fbcdfe1-ad5c-409f-b175-21c0edfc1ae3",
+      "name": "Create Main Workflow UUIDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -640,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://smoggy-rosabelle-konzentrik-754b049a.koyeb.app/api/v1/workflows/{{ $json.id }}/activate",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "={{ $('Create Api Key').item.json.data.rawApiKey }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9822abc0-fc63-4485-8b8e-974cc77a85ce",
+      "name": "Activate Main Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -120,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://smoggy-rosabelle-konzentrik-754b049a.koyeb.app/api/v1/workflows/{{ $('Create Main Workflow').item.json.id }}/tags",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "={{ $('Create Api Key').item.json.data.rawApiKey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "=[\n  {\n    \"id\": \"SXzk2Osoghmuw0pO\"\n  }\n] ",
+        "options": {}
+      },
+      "id": "c9d89b37-b5a5-4f82-a517-8ecc8e9e883c",
+      "name": "Set \"hideInUi\" tag for Main Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "register-new-user",
+        "options": {}
+      },
+      "id": "ed1b852f-edbb-4333-b139-9cf1b976b41f",
+      "name": "Webhook Clerk New User",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2840,
+        500
+      ],
+      "webhookId": "893eac8e-817a-4f03-b4ec-977b9e9914d1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2e0beca7-67dd-461f-983e-bb839d9e8b01",
+              "leftValue": "={{ $('Get SVIX Headers').first().json.environment }}",
+              "rightValue": "development",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "cb670160-1301-4e32-936b-ef7bd7fcc135",
+      "name": "Is Development user",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        120,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2e0beca7-67dd-461f-983e-bb839d9e8b01",
+              "leftValue": "={{ $('Get SVIX Headers').first().json.environment }}",
+              "rightValue": "development",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "86a2ec5c-7cca-4139-9738-6a135532a4c4",
+      "name": "Is Development environment",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1140,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.clerk.com/v1/users/{{ $('Webhook Clerk New User').item.json.body.data.id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer sk_live_u35ClnWvWVuwodHtL6nyLrOPgN6uCcHwTZ65DewPM0"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n  \"private_metadata\": {\n    \"n8nUserId\": \"{{ $('Create User').item.json.user.id }}\",\n    \"n8nApiKey\": \"{{ $('Create Api Key').item.json.data.rawApiKey }}\",\n    \"crossposterEmail\": \"{{ $('Create User').item.json.user.email }}\",\n    \"crossposterEmailPassword\": \"{{ $('Create Email password').item.json.password }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "a61fec67-59df-49e6-bf37-8bb4ede3ea96",
+      "name": "Update Clerk Production user",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -780,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.clerk.com/v1/users/{{ $('Webhook Clerk New User').item.json.body.data.id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer sk_test_CC4NP6dIa4Ut7ZaaKi2uaWu9yKmIki9HX1Utxh8Oob"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n  \"private_metadata\": {\n    \"n8nUserId\": \"{{ $('Create User').item.json.user.id }}\",\n    \"n8nApiKey\": \"{{ $('Create Api Key').item.json.data.rawApiKey }}\",\n    \"crossposterEmail\": \"{{ $('Create User').item.json.user.email }}\",\n    \"crossposterEmailPassword\": \"{{ $('Create Email password').item.json.password }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "eb32692d-c8f6-4da4-bb75-3be1eac37f70",
+      "name": "Update Clerk Development user",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -780,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://smoggy-rosabelle-konzentrik-754b049a.koyeb.app/api/v1/workflows/{{ $('Create Main Workflow').item.json.id }}/tags",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "={{ $('Create Api Key').item.json.data.rawApiKey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "=[\n  {\n    \"id\": \"f2RxddwNwFFjsqKi\"\n  },\n  {\n    \"id\": \"SXzk2Osoghmuw0pO\"\n  }\n] ",
+        "options": {}
+      },
+      "id": "ed08a9d7-bf52-46ef-af8f-ce528eeacb0e",
+      "name": "Set \"dev, hideInUI\" tag for Main Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "1579da0f-15f9-8009-9509-c1cc6f8d0829",
+          "mode": "list",
+          "cachedResultName": "Sociabli CRM",
+          "cachedResultUrl": "https://www.notion.so/1579da0f15f980099509c1cc6f8d0829"
+        },
+        "title": "={{ $('Webhook Clerk New User').item.json.body.data.first_name }} {{ $('Webhook Clerk New User').item.json.body.data.last_name }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Clerk User|rich_text",
+              "textContent": "={{ $('Webhook Clerk New User').item.json.body.data.id }}"
+            },
+            {
+              "key": "Username|rich_text",
+              "textContent": "={{ $('Webhook Clerk New User').item.json.body.data.first_name }} {{ $('Webhook Clerk New User').item.json.body.data.last_name }}"
+            },
+            {
+              "key": "E-Mail|rich_text",
+              "textContent": "={{ $('Webhook Clerk New User').item.json.body.data.email_addresses[0].email_address }}"
+            },
+            {
+              "key": "FU|number",
+              "numberValue": 7
+            },
+            {
+              "key": "Reason|multi_select",
+              "multiSelectValue": [
+                "New User"
+              ]
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        -520,
+        620
+      ],
+      "id": "2895c138-22ff-4df5-af16-152f8e1dda27",
+      "name": "Add User in Notion CRM",
+      "credentials": {
+        "notionApi": {
+          "id": "W5FoSaJzmbtfceU3",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=New user [{{ $('Webhook Clerk New User').item.json.body.data.first_name }} {{ $('Webhook Clerk New User').item.json.body.data.last_name }}](https://dashboard.clerk.com/apps/app_2nVtHHsD4oh11Yp0fdfKlaudw6X/instances/ins_2ohethzud7ytkfDKijVS3AqBW00/users/{{ $('Webhook Clerk New User').item.json.body.data.id }}) registered!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        -520,
+        420
+      ],
+      "id": "1eb54226-c5cb-4ea1-bb6c-a4c3a927251c",
+      "name": "Discord",
+      "webhookId": "a7859dfa-19a6-47c4-a21b-35b7e9868774",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "XlcfHXriBUvKnsIj",
+          "name": "Discord Webhook Url"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook Clerk New User": [
+      {
+        "json": {
+          "headers": {
+            "host": "workflows.sociab.li",
+            "cf-ray": "925d24847835c1e4-DUB",
+            "x-forwarded-for": "52.215.16.239",
+            "content-type": "application/json",
+            "cdn-loop": "cloudflare; loops=1",
+            "accept-encoding": "gzip, br",
+            "x-forwarded-proto": "https",
+            "cf-connecting-ip": "52.215.16.239",
+            "cf-ipcountry": "IE",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "user-agent": "Svix-Webhooks/1.62.0",
+            "x-environment": "production",
+            "x-forwarded-host": "workflows.sociab.li",
+            "svix-timestamp": "1742892437",
+            "svix-signature": "v1,2UpBsfjmEEJ5TPJxLp3iQClV4y+U+3WZAR7TL2Gdjd4=",
+            "x-forwarded-server": "DUB",
+            "content-length": "1841",
+            "svix-id": "msg_2unltwAxopEoXTwyIEBKBxPfRWx",
+            "accept": "*/*",
+            "x-request-id": "1fb3c8d7-1f02-995d-a443-6d0bcffad03a",
+            "x-koyeb-route": "15e785fd-4492-4458-920b-41ac43a47090-5678_prod",
+            "x-koyeb-service-id": "15e785fd-4492-4458-920b-41ac43a47090",
+            "x-koyeb-host-port": "15e785fd-4492-4458-920b-41ac43a47090:5678",
+            "x-koyeb-original-host": "workflows.sociab.li",
+            "x-koyeb-glb": "par",
+            "x-envoy-original-path": "/webhook/register-new-user",
+            "x-koyeb-backend": "fra",
+            "x-b3-traceid": "eeebc92892790d90",
+            "x-b3-spanid": "f13db3170e481597",
+            "x-b3-parentspanid": "6a0811d16782840d",
+            "x-b3-sampled": "1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "data": {
+              "backup_code_enabled": false,
+              "banned": false,
+              "create_organization_enabled": true,
+              "created_at": 1742892436862,
+              "delete_self_enabled": true,
+              "email_addresses": [
+                {
+                  "created_at": 1742892411867,
+                  "email_address": "hello+demo-user@konzentrik.de",
+                  "id": "idn_2unlqkCPZQIYTKkdLafTlR31inz",
+                  "linked_to": [],
+                  "matches_sso_connection": false,
+                  "object": "email_address",
+                  "reserved": false,
+                  "updated_at": 1742892436866,
+                  "verification": {
+                    "attempts": 1,
+                    "expire_at": 1742893012389,
+                    "status": "verified",
+                    "strategy": "email_code"
+                  }
+                }
+              ],
+              "enterprise_accounts": [],
+              "external_accounts": [],
+              "external_id": null,
+              "first_name": "Demo",
+              "has_image": false,
+              "id": "user_2unltqoLonnWQSELXxUSuyvIAji",
+              "image_url": "https://img.clerk.com/eyJ0eXBlIjoiZGVmYXVsdCIsImlpZCI6Imluc18yb2hldGh6dWQ3eXRrZkRLaWpWUzNBcUJXMDAiLCJyaWQiOiJ1c2VyXzJ1bmx0cW9Mb25uV1FTRUxYeFVTdXl2SUFqaSIsImluaXRpYWxzIjoiRFUifQ",
+              "last_active_at": 1742892436862,
+              "last_name": "User",
+              "last_sign_in_at": null,
+              "legal_accepted_at": null,
+              "locked": false,
+              "lockout_expires_in_seconds": null,
+              "mfa_disabled_at": null,
+              "mfa_enabled_at": null,
+              "object": "user",
+              "passkeys": [],
+              "password_enabled": true,
+              "phone_numbers": [],
+              "primary_email_address_id": "idn_2unlqkCPZQIYTKkdLafTlR31inz",
+              "primary_phone_number_id": null,
+              "primary_web3_wallet_id": null,
+              "private_metadata": {},
+              "profile_image_url": "https://www.gravatar.com/avatar?d=mp",
+              "public_metadata": {},
+              "saml_accounts": [],
+              "totp_enabled": false,
+              "two_factor_enabled": false,
+              "unsafe_metadata": {},
+              "updated_at": 1742892436880,
+              "username": null,
+              "verification_attempts_remaining": 100,
+              "web3_wallets": []
+            },
+            "event_attributes": {
+              "http_request": {
+                "client_ip": "2003:cb:ff37:7a00:d0f9:999e:98fe:e63f",
+                "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+              }
+            },
+            "instance_id": "ins_2ohethzud7ytkfDKijVS3AqBW00",
+            "object": "event",
+            "timestamp": 1742892436901,
+            "type": "user.created"
+          },
+          "webhookUrl": "https://workflows.sociab.li/webhook/register-new-user",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "repo_name": "sociabli-workflow-backup",
+  "repo_owner": "konzentrik",
+  "repo_path": "test2",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-03-25T11:28:50.385Z",
+  "versionId": "b1972595-fc63-4ac6-afc2-6fad0f42bc92"
+}
