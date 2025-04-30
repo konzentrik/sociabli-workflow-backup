@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "n8n": {
       "main": [
@@ -278,7 +278,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "GitHub workflows backup",
+  "name": "Sociabli - GitHub workflows backup",
   "nodes": [
     {
       "parameters": {},
@@ -1985,9 +1985,13 @@
     "callerPolicy": "workflowsFromSameOwner",
     "executionTimeout": 60
   },
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2025-04-28T11:15:39.592Z",
-  "versionId": "6a707c15-3828-4e9d-b901-9556373e7354"
+  "triggerCount": 1,
+  "updatedAt": "2025-04-29T07:30:15.599Z",
+  "versionId": "6ff8361f-540d-4ce6-99b1-c0b09e705da6"
 }
