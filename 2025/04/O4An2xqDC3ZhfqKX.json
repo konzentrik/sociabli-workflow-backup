@@ -34,7 +34,7 @@
         "pollTimes": {
           "item": [
             {
-              "mode": "everyMinute"
+              "mode": "everyHour"
             }
           ]
         },
@@ -113,6 +113,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-04-03T08:03:16.095Z",
-  "versionId": "9e71683d-5a70-47e1-8a33-75fbdff62425"
+  "updatedAt": "2025-05-01T07:15:06.352Z",
+  "versionId": "69a3bd0a-271f-40c6-8a3e-4d63522bdab8"
 }
