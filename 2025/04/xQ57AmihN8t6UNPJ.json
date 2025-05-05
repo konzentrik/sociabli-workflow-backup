@@ -1983,7 +1983,8 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "executionTimeout": 60
+    "executionTimeout": 60,
+    "saveDataSuccessExecution": "all"
   },
   "staticData": {
     "node:Schedule Trigger": {
@@ -1992,6 +1993,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-04-29T07:30:15.599Z",
-  "versionId": "6ff8361f-540d-4ce6-99b1-c0b09e705da6"
+  "updatedAt": "2025-05-04T09:52:25.335Z",
+  "versionId": "335ce260-6464-46d2-842f-d8f6b32a7528"
 }
