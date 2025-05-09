@@ -1044,6 +1044,7 @@
       ],
       "id": "fa51eb02-a69e-47eb-b324-25eb6c9ca4b2",
       "name": "HTTP Sociabli Workflow data",
+      "retryOnFail": true,
       "credentials": {
         "httpHeaderAuth": {
           "id": "kJekewJczE3kQ2z1",
@@ -1101,7 +1102,7 @@
         "json": {
           "headers": {
             "host": "workflows.sociab.li",
-            "cf-ray": "931adf7f8849e50d-TXL",
+            "cf-ray": "93c06f0fdd2fe508-TXL",
             "x-forwarded-host": "webhook.sociab.li",
             "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
             "x-forwarded-for": "57.129.36.253,85.13.131.92",
@@ -1109,16 +1110,16 @@
             "x-forwarded-server": "TXL",
             "x-forwarded-proto": "https",
             "user-agent": "axios/1.8.2",
-            "x-sociabli-workflow-id": "428b9c9e-b097-480c-a905-7fc1be87bccd",
+            "x-sociabli-workflow-id": "81cf6d8a-fde7-47eb-903b-2ad492d265cf",
             "cf-visitor": "{\"scheme\":\"https\"}",
-            "x-user-id": "user_2tWIrWvggRFE8bQhH9eimy39bmy",
+            "x-user-id": "user_2p1lqDc5WqDnigjN8AtrWSGprO5",
             "authorization": "ARNOLD-sklave4falle",
             "cdn-loop": "cloudflare; loops=1",
             "cf-ipcountry": "DE",
             "content-type": "application/json",
             "cf-connecting-ip": "85.13.131.92",
-            "content-length": "192",
-            "x-request-id": "84b705ea-cc8c-9d84-9285-02db6c51b541",
+            "content-length": "270",
+            "x-request-id": "9271c32c-7927-9655-b2b4-83bd26a58a31",
             "x-koyeb-route": "15e785fd-4492-4458-920b-41ac43a47090-5678_prod",
             "x-koyeb-service-id": "15e785fd-4492-4458-920b-41ac43a47090",
             "x-koyeb-host-port": "15e785fd-4492-4458-920b-41ac43a47090:5678",
@@ -1126,16 +1127,16 @@
             "x-koyeb-glb": "fra",
             "x-envoy-original-path": "/webhook/mastodon-to-bluesky",
             "x-koyeb-backend": "fra",
-            "x-b3-traceid": "080da5514b7ebc7b",
-            "x-b3-spanid": "972f24c2e366c26e",
-            "x-b3-parentspanid": "3a097654cf1545b5",
+            "x-b3-traceid": "70055fd2150e316d",
+            "x-b3-spanid": "d1a32c5655b84b8a",
+            "x-b3-parentspanid": "fc4872f31651737c",
             "x-b3-sampled": "1"
           },
           "params": {},
           "query": {},
           "body": {
-            "link": "https://owo.cafe/@OrigamiArturo/114352578129544589",
-            "contentSnippet": "Esto de intentar estar a la vez en varias redes sociales se está convirtiendo en un quebradero de cabeza."
+            "link": "https://romancelandia.club/@BooksofMyHeart/114466204520452259",
+            "contentSnippet": "ICYMI:The Fury of the Gods by John Gwynne \n#BookReview   #4Hearts #Dragons #gods\nhttps://booksofmyheart.net/2024/10/26/the-fury-of-the-gods-by-john-gwynne/?fsp_sid=3840"
           },
           "webhookUrl": "https://workflows.sociab.li/webhook/mastodon-to-bluesky",
           "executionMode": "production"
@@ -1153,6 +1154,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-04-17T11:02:03.865Z",
-  "versionId": "41f5130d-70a7-484a-94c1-b199203c704e"
+  "updatedAt": "2025-05-08T07:14:29.029Z",
+  "versionId": "ac85cc52-eaa0-48e3-acf5-95a9ba384798"
 }
