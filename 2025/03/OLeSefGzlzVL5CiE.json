@@ -464,12 +464,12 @@
   "repo_path": "",
   "settings": {
     "executionOrder": "v1",
-    "saveDataSuccessExecution": "all",
+    "saveDataSuccessExecution": "none",
     "callerPolicy": "workflowsFromSameOwner"
   },
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-05-08T08:20:51.117Z",
-  "versionId": "58d3b06a-005a-4e0c-97b9-ad1fe7f2c9a6"
+  "updatedAt": "2025-05-12T07:44:47.361Z",
+  "versionId": "82cbf755-6e04-4e68-b23f-e1ac959e8d03"
 }
