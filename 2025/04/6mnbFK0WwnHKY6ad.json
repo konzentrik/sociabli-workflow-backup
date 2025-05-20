@@ -34,7 +34,7 @@
         "pollTimes": {
           "item": [
             {
-              "mode": "everyMinute"
+              "mode": "everyHour"
             }
           ]
         },
@@ -108,11 +108,11 @@
   },
   "staticData": {
     "node:Mastodon RSS Feed Trigger": {
-      "lastItemDate": "2025-03-24T14:32:10.000Z"
+      "lastItemDate": "2025-05-19T12:51:48.000Z"
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-04-03T08:02:58.473Z",
-  "versionId": "4b3379ca-e0ea-40f4-a4f6-31a40443e473"
+  "updatedAt": "2025-05-19T13:37:11.710Z",
+  "versionId": "7b9a611b-af2d-420d-81db-959a350351f3"
 }
