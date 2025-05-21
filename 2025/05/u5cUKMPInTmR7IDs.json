@@ -1,0 +1,118 @@
+{
+  "active": true,
+  "connections": {
+    "Mastodon RSS Feed Trigger": {
+      "main": [
+        [
+          {
+            "node": "Retrieve all items from feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve all items from feed": {
+      "main": [
+        [
+          {
+            "node": "Webhook Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-20T16:09:02.820Z",
+  "id": "u5cUKMPInTmR7IDs",
+  "meta": null,
+  "name": "Mastodon to Bluesky - user_2tAcI5phtKrQlsxw2VoIxQBuIq9",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "feedUrl": "https://swiss.social/@wuwei.rss"
+      },
+      "id": "7e37911c-9730-49ce-b58a-5390ec8c52f7",
+      "name": "Mastodon RSS Feed Trigger",
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        680,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://webhook.sociab.li/mastodon-to-bluesky",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "ARNOLD-sklave4falle"
+            },
+            {
+              "name": "x-user-id",
+              "value": "user_2tAcI5phtKrQlsxw2VoIxQBuIq9"
+            },
+            {
+              "name": "x-sociabli-workflow-id",
+              "value": "f5f33e20-ad23-4c4f-83be-c15d172f9bc4"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={ \"link\": \"{{ $('Retrieve all items from feed').item.json.link }}\", \"contentSnippet\": {{ $('Retrieve all items from feed').item.json.contentSnippet.quote().replaceAll('\\n','\\\\n') }} }",
+        "options": {}
+      },
+      "id": "d96395df-698b-4295-a351-de8d043da28b",
+      "name": "Webhook Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return $('Mastodon RSS Feed Trigger').all();"
+      },
+      "id": "1feb4248-1047-4e61-937f-4cd3d5d271ad",
+      "name": "Retrieve all items from feed",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        460
+      ]
+    }
+  ],
+  "pinData": null,
+  "repo_name": "sociabli-workflow-backup",
+  "repo_owner": "konzentrik",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Mastodon RSS Feed Trigger": {
+      "lastItemDate": "2025-05-14T20:02:31.000Z"
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-20T16:09:03.103Z",
+  "versionId": "1a1ff3a0-bcd7-4053-a472-98eb9fd22a4b"
+}
