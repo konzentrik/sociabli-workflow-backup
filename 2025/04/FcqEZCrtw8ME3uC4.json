@@ -11,6 +11,17 @@
           }
         ]
       ]
+    },
+    "Webhook Lemon Squeezy": {
+      "main": [
+        [
+          {
+            "node": "Discord tools kzk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-04-01T13:29:40.138Z",
@@ -64,6 +75,44 @@
           "name": "Discord Webhook GitHub APEL"
         }
       }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "discord-lemon-squeezy",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        200
+      ],
+      "id": "c21c4f59-0a15-48fb-a2ed-2672fb39e994",
+      "name": "Webhook Lemon Squeezy",
+      "webhookId": "8f5cb045-ee71-46b1-941d-4382c4d428a5"
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "= {{ $json.body.data.attributes.user_name }} hat [{{ $json.body.data.attributes.first_order_item.product_name }}]({{ $json.body.data.attributes.urls.receipt }}) für {{ $json.body.data.attributes.total_formatted }} gekauft.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        140,
+        200
+      ],
+      "id": "95d0b0e9-80a9-45fb-b92f-8baa5f11debf",
+      "name": "Discord tools kzk",
+      "webhookId": "a7859dfa-19a6-47c4-a21b-35b7e9868774",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "acgA2aksGr6N8fM7",
+          "name": "Discord Webhook tools konzentrik"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -75,7 +124,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2025-04-03T08:02:03.850Z",
-  "versionId": "e4d8e75c-aeed-4faf-9a85-3268278007cf"
+  "triggerCount": 2,
+  "updatedAt": "2025-06-12T14:37:27.105Z",
+  "versionId": "cc2330ab-8730-4870-b4d8-87f8bcc4aa68"
 }
