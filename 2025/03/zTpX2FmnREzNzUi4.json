@@ -380,6 +380,7 @@
   },
   "createdAt": "2025-03-31T08:45:40.817Z",
   "id": "zTpX2FmnREzNzUi4",
+  "isArchived": false,
   "meta": null,
   "name": "Sociabli - Mastodon to Bluesky",
   "nodes": [
