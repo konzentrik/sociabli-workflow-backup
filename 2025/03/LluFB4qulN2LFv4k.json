@@ -186,6 +186,7 @@
   },
   "createdAt": "2025-03-25T08:13:06.754Z",
   "id": "LluFB4qulN2LFv4k",
+  "isArchived": false,
   "meta": null,
   "name": "Sociabli - Activate user workflow",
   "nodes": [
