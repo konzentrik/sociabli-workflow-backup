@@ -26,6 +26,7 @@
   },
   "createdAt": "2025-04-01T10:55:43.762Z",
   "id": "AeCJ3dEfT2sdRmJO",
+  "isArchived": false,
   "meta": null,
   "name": "Mastodon to Bluesky - user_2txCZ84lffAB1ksNjpwGiuh5DXl",
   "nodes": [
@@ -108,7 +109,7 @@
   },
   "staticData": {
     "node:Mastodon RSS Feed Trigger": {
-      "lastItemDate": "2025-06-26T07:05:13.000Z"
+      "lastItemDate": "2025-06-27T06:05:32.000Z"
     }
   },
   "tags": [],
