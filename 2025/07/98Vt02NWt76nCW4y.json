@@ -1,0 +1,205 @@
+{
+  "active": false,
+  "connections": {
+    "Email Trigger (IMAP)": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        []
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-12T12:56:30.676Z",
+  "id": "98Vt02NWt76nCW4y",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "email to blogpost",
+  "nodes": [
+    {
+      "parameters": {
+        "postProcessAction": "nothing",
+        "format": "resolved",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "de47bb56-3e01-48e4-8adc-01ff854a96e2",
+      "name": "Email Trigger (IMAP)",
+      "credentials": {
+        "imap": {
+          "id": "rT2M5P7PMWKgBeEO",
+          "name": "IMAP Maurice Blog"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "html": "={{ $json.textAsHtml }}",
+        "destinationKey": "textAsMarkdown",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        660,
+        -160
+      ],
+      "id": "eb6d3963-5d58-4017-9c91-06ce9ae7b971",
+      "name": "Markdown"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c8ce3c93-8852-49c5-a8d1-a865bce86ff1",
+              "leftValue": "={{ $json.sender }}",
+              "rightValue": "maurice@maurice-renck.de",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        -140
+      ],
+      "id": "c713a1f7-c0b7-4e81-b588-ebc1f6995685",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Invalid Sender Address"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "id": "4d097db6-d3bc-4885-aafd-fdc602dad35e",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "markdown",
+              "value": "={{ $json.textAsMarkdown }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        -160
+      ],
+      "id": "6bcfa2a3-59b1-4e71-9866-1d7aa49d4745",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check if there are any items\nif (items.length === 0) {\n    return [];\n}\n\n// Access the binary data from the first item\nconst binaryData = $input.first().binary;\n\n// Create an array to hold the attachment data\nconst attachmentData = [];\n\n// Loop through each binary property to get attachments\nfor (const key in binaryData) {\n    if (binaryData.hasOwnProperty(key)) {\n        const attachment = binaryData[key];\n        attachmentData.push({\n            name: attachment.fileName,\n            data: attachment.data,\n            mimeType: attachment.mimeType\n        });\n    }\n}\n\n// Return the attachment data\nreturn [{ json: { attachments: attachmentData, sender: $input.first().json.from.value[0].address, title: $input.first().json.subject, textAsHtml: $input.first().json.textAsHtml } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        180,
+        -140
+      ],
+      "id": "72b9a404-b2e6-4b70-b02c-ddce72dd7975",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "sociabli-workflow-backup",
+  "repo_owner": "konzentrik",
+  "repo_path": "",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-12T13:29:23.886Z",
+  "versionId": "3a99c9f2-cdc8-431a-8700-67f227d612df"
+}
